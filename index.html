@@ -9,7 +9,11 @@
 </head>
 <body>
     <!-- Content goes here -->
-    <h1>Random Pokémon Generator</h1>
+    <div class="title-container">
+        <img src="https://static.thenounproject.com/png/40583-200.png" alt="Pokeball" class="title-pokeball">
+        <h1>Random Pokémon Generator</h1>
+        <img src="https://static.thenounproject.com/png/40583-200.png" alt="Pokeball" class="title-pokeball">
+    </div>
     <button type="button" id="generateBtn">Generate Random Pokémon</button>
     <div id="pokemonInfo"></div>
 
@@ -38,14 +42,43 @@
                     })
                 );
 
+                // Fetch location encounters
+                const encountersRes = await fetch(data.location_area_encounters);
+                const encountersData = await encountersRes.json();
+                const locations = encountersData.map(e => e.location_area.name.replace(/-/g, ' ')).join(', ');
+
                 document.getElementById('pokemonInfo').innerHTML = `
                     <h2>${data.name.charAt(0).toUpperCase() + data.name.slice(1)}</h2>
+                    <p>Pokedex ID: #${data.id}</p>
                     <img src="${data.sprites.front_default}" alt="${data.name}">
                     <p>TYPE: ${data.types.map(t => t.type.name).join(', ')}</p>
-                    <h3>ABILITIES</h3>
-                    <ul>
-                        ${abilities.map(ab => `<li><strong>${ab.name}</strong>: ${ab.effect}</li>`).join('')}
-                    </ul>
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <h3>INFO</h3>
+                                <ul>
+                                    <li><strong>HEIGHT:</strong> ${data.height / 10} m</li>
+                                    <li><strong>WEIGHT:</strong> ${data.weight / 10} kg</li>
+                                    <li><strong>LOCATION AREA ENCOUNTERS:</strong> ${locations.length > 0 ? locations : 'Not found in the wild'}</li>
+                                </ul>
+                            </div>
+
+                            <div class="col">
+                                <h3>STATS</h3>
+                                <ul>
+                                    ${data.stats.map(s => `<li><strong>${s.stat.name.toUpperCase()}:</strong> ${s.base_stat}</li>`).join('')}
+                                </ul>
+                            </div>
+
+                            <div class="col">
+                                <h3>ABILITIES</h3>
+                                <ul>
+                                    ${abilities.map(a => `<li><strong>${a.name.toUpperCase()}:</strong> ${a.effect}</li>`).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 `;
             } catch (error) {
                 document.getElementById('pokemonInfo').innerHTML = 'Error fetching Pokémon data.';

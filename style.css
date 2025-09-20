@@ -34,10 +34,13 @@ h2{
 }
 h3{
     color: #8a6d3b;
-    font-size: 20px;
+    font-size: 25px;
+    text-align: center;
 }
 p{
     color: #3c763d;
+    font-size: 20px;
+    text-align: center;
 }
 ul{
     list-style-type: none;
@@ -46,4 +49,30 @@ ul{
 li{
     margin-bottom: 10px;
     color: #8a3d55;
+    text-align: justify;
+}
+.container{
+    border: 5px solid #f0ad4e;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px;
+    background-color: #f9f9f9;
+}
+.col{
+    float: center;
+    width: 50%;
+    box-sizing: border-box;
+    border-radius: 2px;
+    padding: 5px;
+    background-color: #a6b0de;
+    border-style: double;
+}
+.title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.title-pokeball {
+    width: 50px;
+    height: 50px;
 }
