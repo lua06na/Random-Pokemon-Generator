@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon Project</title>
+</head>
+<body>
+    <!-- Content goes here -->
+    <h1>Random Pokémon Generator</h1>
+    <button id="generateBtn">Generate Random Pokémon</button>
+    <div id="pokemonInfo"></div>
+
+    <script>
+        document.getElementById('generateBtn').addEventListener('click', async () => {
+            const maxPokemon = 1010; // As of Gen IX
+            const randomId = Math.floor(Math.random() * maxPokemon) + 1;
+            const url = `https://pokeapi.co/api/v2/pokemon/${randomId}`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                document.getElementById('pokemonInfo').innerHTML = `
+                    <h2>${data.name.charAt(0).toUpperCase() + data.name.slice(1)}</h2>
+                    <img src="${data.sprites.front_default}" alt="${data.name}">
+                    <p>Type: ${data.types.map(t => t.type.name).join(', ')}</p>
+                `;
+            } catch (error) {
+                document.getElementById('pokemonInfo').innerHTML = 'Error fetching Pokémon data.';
+            }
+        });
+    </script>
+</body>
+</html>
