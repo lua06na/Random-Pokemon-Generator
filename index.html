@@ -8,7 +8,6 @@
     <title>Pokemon Project</title>
 </head>
 <body>
-    <!-- Content goes here -->
     <div class="title-container">
         <img src="https://static.thenounproject.com/png/40583-200.png" alt="Pokeball" class="title-pokeball">
         <h1>Random Pokémon Generator</h1>
@@ -45,39 +44,101 @@
                 // Fetch location encounters
                 const encountersRes = await fetch(data.location_area_encounters);
                 const encountersData = await encountersRes.json();
-                const locations = encountersData.map(e => e.location_area.name.replace(/-/g, ' ')).join(', ');
+                const locationsByVersion = {};
+                encountersData.forEach(encounter => {
+                    const locationName = encounter.location_area.name.replace(/-/g, ' ');
+                    encounter.version_details.forEach(versionDetail => {
+                        const versionName = versionDetail.version.name;
+                        if (!locationsByVersion[versionName]) {
+                            locationsByVersion[versionName] = new Set();
+                        }
+                        locationsByVersion[versionName].add(locationName);
+                    });
+                });
+
+                const locationsHtml = Object.entries(locationsByVersion).map(([version, locationsSet]) => {
+                    const formattedVersionName = version.replace(/-/g, ' ').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+                    return `<li class="text-start"><strong>${formattedVersionName}:</strong> ${Array.from(locationsSet).join(', ')}</li>`;
+                }).join('');
+
+                // Prepare sprites HTML from the data object
+                const spriteImages = [
+                    { name: 'Default', url: data.sprites.front_default },
+                    { name: 'Shiny', url: data.sprites.front_shiny },
+                    { name: 'Default (Back)', url: data.sprites.back_default },
+                    { name: 'Shiny (Back)', url: data.sprites.back_shiny },
+                    { name: 'Official Artwork', url: data.sprites.other?.['official-artwork']?.front_default },
+                ].filter(sprite => sprite.url);
+
+                const spritesHtml = spriteImages.length > 0 ? spriteImages.map(sprite => `
+                    <div class="text-center">
+                        <img src="${sprite.url}" alt="${data.name} ${sprite.name}" class="sprite-img bg-light rounded p-1">
+                        <p class="small mb-0 text-muted">${sprite.name}</p>
+                    </div>
+                `).join('') : '<p>No sprites available.</p>';
 
                 document.getElementById('pokemonInfo').innerHTML = `
                     <h2>${data.name.charAt(0).toUpperCase() + data.name.slice(1)}</h2>
                     <p>Pokedex ID: #${data.id}</p>
                     <img src="${data.sprites.front_default}" alt="${data.name}">
-                    <p>TYPE: ${data.types.map(t => t.type.name).join(', ')}</p>
+                    <p>TYPE: ${data.types.map(t => t.type.name.toUpperCase()).join(', ')}</p>
 
                     <div class="container">
                         <div class="row">
                             <div class="col">
-                                <h3>INFO</h3>
-                                <ul>
-                                    <li><strong>HEIGHT:</strong> ${data.height / 10} m</li>
-                                    <li><strong>WEIGHT:</strong> ${data.weight / 10} kg</li>
-                                    <li><strong>LOCATION AREA ENCOUNTERS:</strong> ${locations.length > 0 ? locations : 'Not found in the wild'}</li>
-                                </ul>
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3>INFO</h3>
+                                    <ul>
+                                        <li><strong>HEIGHT:</strong> ${data.height / 10} m</li>
+                                        <li><strong>WEIGHT:</strong> ${data.weight / 10} kg</li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                            </div>
+                            
+                            <div class="col">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3>STATS</h3>
+                                    <ul>
+                                        ${data.stats.map(s => `<li><strong>${s.stat.name.toUpperCase()}:</strong> ${s.base_stat}</li>`).join('')}
+                                    </ul>
+                                </div>
+                            </div>
                             </div>
 
                             <div class="col">
-                                <h3>STATS</h3>
-                                <ul>
-                                    ${data.stats.map(s => `<li><strong>${s.stat.name.toUpperCase()}:</strong> ${s.base_stat}</li>`).join('')}
-                                </ul>
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3>ABILITIES</h3>
+                                    <ul>
+                                        ${abilities.map(a => `<li><strong>${a.name.toUpperCase()}:</strong> ${a.effect}</li>`).join('')}
+                                    </ul>
+                                </div>
+                            </div>
                             </div>
 
-                            <div class="col">
-                                <h3>ABILITIES</h3>
-                                <ul>
-                                    ${abilities.map(a => `<li><strong>${a.name.toUpperCase()}:</strong> ${a.effect}</li>`).join('')}
-                                </ul>
+                        </div>
+                        <div class="row">
+                             <div class="card w-100 mt-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">LOCATION AREA ENCOUNTERS</h5>
+                                    ${locationsHtml.length > 0 ? `<ul>${locationsHtml}</ul>` : '<p class="card-text mb-0">Not found in the wild.</p>'}
+                                </div>
                             </div>
                         </div>
+                        <div class="row">
+                        <div class="card w-100 mt-3">
+                            <div class="card-body">
+                                <h5 class="card-title">SPRITES</h5>
+                                <div class="d-flex flex-wrap justify-content-center gap-3">
+                                    ${spritesHtml}
+                                </div>
+                        </div>
+                        </div>
+                    </div>
                     </div>
                 `;
             } catch (error) {
