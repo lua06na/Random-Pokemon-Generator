@@ -77,10 +77,14 @@
                     </div>
                 `).join('') : '<p>No sprites available.</p>';
 
+                const mainImageUrl = data.sprites.versions?.['generation-v']?.['black-white']?.animated?.front_default
+                                  || data.sprites.other?.['official-artwork']?.front_default
+                                  || data.sprites.front_default;
+
                 document.getElementById('pokemonInfo').innerHTML = `
                     <h2>${data.name.charAt(0).toUpperCase() + data.name.slice(1)}</h2>
                     <p>Pokedex ID: #${data.id}</p>
-                    <img src="${data.sprites.front_default}" alt="${data.name}">
+                    <img src="${mainImageUrl}" alt="${data.name}">
                     <p>TYPE: ${data.types.map(t => t.type.name.toUpperCase()).join(', ')}</p>
 
                     <div class="container">
