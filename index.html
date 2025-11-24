@@ -9,9 +9,11 @@
 </head>
 <body>
     <div class="title-container">
-        <img src="https://static.thenounproject.com/png/40583-200.png" alt="Pokeball" class="title-pokeball">
-        <h1>Random Pokémon Generator</h1>
-        <img src="https://static.thenounproject.com/png/40583-200.png" alt="Pokeball" class="title-pokeball">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Pok%C3%A9_Ball_icon.svg/2052px-Pok%C3%A9_Ball_icon.svg.png" alt="Pokeball" class="title-pokeball">
+        <h1>
+            <img src="https://fontmeme.com/permalink/251124/16d41701bc8bdc67b2d8e4d87c2f3e15.png" alt="pokemon-font" border="0">
+        </h1>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Pok%C3%A9_Ball_icon.svg/2052px-Pok%C3%A9_Ball_icon.svg.png" alt="Pokeball" class="title-pokeball">
     </div>
     <button type="button" id="generateBtn">Generate Random Pokémon</button>
     <div id="pokemonInfo"></div>
@@ -67,7 +69,6 @@
                     { name: 'Shiny', url: data.sprites.front_shiny },
                     { name: 'Default (Back)', url: data.sprites.back_default },
                     { name: 'Shiny (Back)', url: data.sprites.back_shiny },
-                    { name: 'Official Artwork', url: data.sprites.other?.['official-artwork']?.front_default },
                 ].filter(sprite => sprite.url);
 
                 const spritesHtml = spriteImages.length > 0 ? spriteImages.map(sprite => `
@@ -77,8 +78,7 @@
                     </div>
                 `).join('') : '<p>No sprites available.</p>';
 
-                const mainImageUrl = data.sprites.versions?.['generation-v']?.['black-white']?.animated?.front_default
-                                  || data.sprites.other?.['official-artwork']?.front_default
+                const mainImageUrl = data.sprites.other?.['official-artwork']?.front_default
                                   || data.sprites.front_default;
 
                 document.getElementById('pokemonInfo').innerHTML = `
@@ -99,22 +99,12 @@
 
                                     </ul>
                                 </div>
-                            </div>
-                            </div>
-                            
-                            <div class="col">
-                            <div class="card">
                                 <div class="card-body">
                                     <h3>STATS</h3>
                                     <ul>
                                         ${data.stats.map(s => `<li><strong>${s.stat.name.toUpperCase()}:</strong> ${s.base_stat}</li>`).join('')}
                                     </ul>
                                 </div>
-                            </div>
-                            </div>
-
-                            <div class="col">
-                            <div class="card">
                                 <div class="card-body">
                                     <h3>ABILITIES</h3>
                                     <ul>
@@ -123,6 +113,7 @@
                                 </div>
                             </div>
                             </div>
+
 
                         </div>
                         <div class="row">

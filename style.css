@@ -1,5 +1,5 @@
 body{
-    background-color: #d5dbdb;
+    background-color: #a8c3dd;
     font-size: 20px;
     text-align: center;
     padding: 100px;
@@ -18,7 +18,7 @@ body{
 button{
     background-color: #f0ad4e;
     border: none;
-    color: white;
+    color: #45424b;
     padding: 10px 20px;
     text-align: center;
     text-decoration: none;
@@ -26,19 +26,23 @@ button{
     font-size: 30px;
     margin: 4px 2px;
     cursor: pointer;
-    border-radius: 12px;
+    border-radius: 5px;
+}
+h1{
+    color: #28242e;
+    text-transform: uppercase;
 }
 h2{
-    color: #31708f;
+    color: #28242e;
     text-transform: uppercase;
 }
 h3{
-    color: #8a6d3b;
+    color: #757cbb;
     font-size: 25px;
     text-align: center;
 }
 p{
-    color: #3c763d;
+    color: #757cbb;
     font-size: 20px;
     text-align: center;
 }
@@ -48,8 +52,8 @@ ul{
 }
 li{
     margin-bottom: 10px;
-    color: #8a3d55;
-    text-align: justify;
+    color: #7a99b6;
+    text-align: center;
 }
 .container{
     border: 5px solid #f0ad4e;
@@ -78,6 +82,11 @@ li{
     justify-content: center;
     align-items: center;
     gap: 20px;
+    border-bottom: #45424b 2px solid;
+    padding: 10px;
+    margin: 10px;
+    background-color: #7a99b6;
+    border-radius: 5px;
 }
 
 .title-pokeball {
@@ -99,11 +108,16 @@ li{
     align-self: stretch;
 }
 .card-body {
-    align-self: stretch;
+    align-self: center;
+    padding: 10px;
+    width: 100%;
+}
+.card-body:not(:last-child) {
+    border-bottom: 2px solid #f0ad4e;
 }
 .card-title {
     font-size: 24px;
     margin-bottom: 10px;
-    color: #31708f;
+    color: #757cbb;
     text-transform: uppercase;
 }
