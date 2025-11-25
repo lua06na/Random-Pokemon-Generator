@@ -3,8 +3,6 @@ body{
     font-size: 20px;
     text-align: center;
     padding: 20px;
-    border-left: #28242e 8px dashed;
-    border-right: #28242e 8px dashed;
 }
 
 #pokemonInfo{
@@ -111,8 +109,8 @@ li{
     border-bottom: #45424b 2px solid;
     padding: 30px;
     margin: 30px;
-    background-color: #7a99b6;
-    border-radius: 5px;
+    background: linear-gradient(#cfdfee, #c0d6ff, #d1dff9);
+    border-radius: 10px;
 }
 
 .title-pokeball {
