@@ -2,7 +2,9 @@ body{
     background-color: #a8c3dd;
     font-size: 20px;
     text-align: center;
-    padding: 100px;
+    padding: 20px;
+    border-left: #28242e 10px dashed;
+    border-right: #28242e 10px dashed;
 }
 
 #pokemonInfo{
@@ -16,9 +18,7 @@ body{
     object-fit: contain;
 }
 button{
-    background-color: #f0ad4e;
     border: none;
-    color: #45424b;
     padding: 10px 20px;
     text-align: center;
     text-decoration: none;
@@ -27,6 +27,10 @@ button{
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 5px;
+    font-family: "DynaPuff", system-ui;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
 }
 h1{
     color: #28242e;
@@ -35,25 +39,44 @@ h1{
 h2{
     color: #28242e;
     text-transform: uppercase;
+    font-family: "DynaPuff", system-ui;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
 }
 h3{
     color: #757cbb;
     font-size: 25px;
     text-align: center;
+    font-family: "Rubik Iso", system-ui;
+    font-weight: 400;
+    font-style: normal;
 }
 p{
     color: #757cbb;
     font-size: 20px;
     text-align: center;
+    font-family: "DynaPuff", system-ui;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
 }
 ul{
     list-style-type: none;
     padding: 0;
+    text-align: center;
+    align-items: center;
+    align-self: center;
+    align-content: center;
 }
 li{
     margin-bottom: 10px;
     color: #7a99b6;
     text-align: center;
+    font-family: "DynaPuff", system-ui;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
 }
 .container{
     border: 5px solid #f0ad4e;
@@ -81,10 +104,10 @@ li{
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
     border-bottom: #45424b 2px solid;
-    padding: 10px;
-    margin: 10px;
+    padding: 30px;
+    margin: 30px;
     background-color: #7a99b6;
     border-radius: 5px;
 }
@@ -109,6 +132,7 @@ li{
 }
 .card-body {
     align-self: center;
+    align-items: center;
     padding: 10px;
     width: 100%;
 }
@@ -120,4 +144,23 @@ li{
     margin-bottom: 10px;
     color: #757cbb;
     text-transform: uppercase;
+}
+
+@keyframes rainbow-bg {
+    0% { background-color: #ffadad; border-color: #ffadad; }
+    17% { background-color: #ffd6a5; border-color: #ffd6a5; }
+    34% { background-color: #fdffb6; border-color: #fdffb6; }
+    51% { background-color: #caffbf; border-color: #caffbf; }
+    68% { background-color: #9bf6ff; border-color: #9bf6ff; }
+    85% { background-color: #a0c4ff; border-color: #a0c4ff; }
+    100% { background-color: #ffadad; border-color: #ffadad; }
+}
+
+#generateBtn {
+    animation: rainbow-bg 2s linear infinite;
+    color: #45424b;
+}
+#generateBtn:hover {
+    animation: rainbow-bg 8s linear infinite;
+    color: #28242e;
 }
