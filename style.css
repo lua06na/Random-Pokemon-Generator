@@ -34,8 +34,13 @@ button{
     -webkit-text-stroke: 2px #356ABC;
 }
 h1{
-    color: #28242e;
-    text-transform: uppercase;
+    color: #F0AE4D;
+    font-family: 'Pokemon Solid', sans-serif;
+    -webkit-text-stroke: 4px #356ABC;
+    font-size: 50px;
+    letter-spacing: 3px;
+    text-shadow: #234983 2px 8px 0px;
+    
 }
 h2{
     color: #28242e;
@@ -116,6 +121,10 @@ li{
 .title-pokeball {
     width: 50px;
     height: 50px;
+    margin-top: 20px;
+    max-width: 100%;
+    height: auto;
+    display: block;
 }
 .sprite-img {
     width: 96px;
